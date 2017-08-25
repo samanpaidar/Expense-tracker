@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { DetailPage } from '../detail/detail';
 
 @Component({
   selector: 'page-home',
@@ -28,5 +29,9 @@ export class HomePage {
     }
   ];
   constructor(private navCtrl: NavController) {}
+  onItemClick(expense){
+      console.log("Item clicked:", expense);
+      this.navCtrl.push(DetailPage);
+    }
 
 }

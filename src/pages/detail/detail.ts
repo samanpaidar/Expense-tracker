@@ -1,25 +1,23 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+import { Expense } from '../../app/expense.model';
 import { ExpenseService } from '../../app/expense.service';
 
-
-@IonicPage()
 @Component({
   selector: 'page-detail',
-  templateUrl: 'detail.html',
+  templateUrl: 'detail.html'
 })
 export class DetailPage {
-  categories;
-  expense;
-  constructor(	public navCtrl: NavController, 
-  				public navParams: NavParams,
-  				private expenseService: ExpenseService
-  				) {
-  	
-  				this.categories = expenseService.categories;
-  				this.expense=navParams.get('expense');
- 			 }
 
-  
+  categories: string[];
+  expense: Expense;
+
+  constructor(private navCtrl: NavController,
+              private navParams: NavParams,
+              private expenseService: ExpenseService) {
+    this.categories = expenseService.categories;
+    const expenseId = navParams.get('expenseId');
+    this.expense = expenseService.getExpense(expenseId);
+  }
 
 }

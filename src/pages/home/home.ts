@@ -31,7 +31,9 @@ export class HomePage {
   constructor(private navCtrl: NavController) {}
   onItemClick(expense){
       console.log("Item clicked:", expense);
-      this.navCtrl.push(DetailPage);
+      this.navCtrl.push(DetailPage,{
+        expense: expense
+      });
     }
 
 }

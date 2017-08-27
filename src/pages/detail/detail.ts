@@ -8,9 +8,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'detail.html',
 })
 export class DetailPage {
+	
+  expense;
+  constructor(	public navCtrl: NavController, 
+  				public navParams: NavParams) {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  				this.expense=navParams.get('expense');
+ 			 }
 
   
 

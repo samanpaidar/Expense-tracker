@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ExpenseService } from '../../app/expense.service';
 import { DetailPage } from '../detail/detail';
 
 @Component({
@@ -8,27 +9,12 @@ import { DetailPage } from '../detail/detail';
 })
 export class HomePage {
 
-  expenses = [
-    {
-      date:'2016-01-01',
-      amount: 7.7 ,
-      category:'Food',
-      description:'Dinner'
-    },
-    {
-      date:'2016-01-01',
-      amount: 8.2 ,
-      category:'Ticket',
-      description:'Train ticket'
-    },
-    {
-      date:'2016-01-01',
-      amount: 5 ,
-      category:'Clothes',
-      description:'T-shirt'
-    }
-  ];
-  constructor(private navCtrl: NavController) {}
+  
+  expenses;
+  constructor(private navCtrl: NavController,
+              private expenseService: ExpenseService) {
+    this.expenses = expenseService.expenses;
+  }
   onItemClick(expense){
       console.log("Item clicked:", expense);
       this.navCtrl.push(DetailPage,{

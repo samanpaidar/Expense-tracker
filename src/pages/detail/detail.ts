@@ -19,5 +19,8 @@ export class DetailPage {
     const expenseId = navParams.get('expenseId');
     this.expense = expenseService.getExpense(expenseId);
   }
-
+  onSave(){
+  	this.expenseService.updateExpense(this.expense);
+  	this.navCtrl.pop();
+  }
 }

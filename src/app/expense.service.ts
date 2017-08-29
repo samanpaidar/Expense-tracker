@@ -35,7 +35,10 @@ export class ExpenseService {
     const expense = this.expenses.find(it => it.id === expenseId);
     return Object.assign({}, expense);
   }
-
+  removeExpense(expenseId:number){
+  	const index = this.expenses.findIndex(it => it.id === expenseId);
+  	this.expenses.splice(index,1);
+  }
   updateExpense(expense: Expense){
     const index = this.expenses.findIndex(it => it.id === expense.id);
     this.expenses[index] = expense;

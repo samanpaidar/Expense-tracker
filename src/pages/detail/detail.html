@@ -4,7 +4,10 @@
   <ion-navbar>
     <ion-title>{{ expense.description || 'New Expense'}}</ion-title>
     <ion-buttons end>
-    	<button ion-button icon-only (click)="onSave()">
+    	<button ion-button icon-only (click)="onTrash()" *ngIf="expense.id">
+    		<ion-icon name="trash"></ion-icon>
+    	</button>
+    	<button ion-button icon-only (click)="onSave()" [disabled]="!f.valid">
     		<ion-icon name="checkmark"></ion-icon>
     	</button>
     </ion-buttons>
@@ -14,30 +17,32 @@
 
 
 <ion-content padding>
-	<ion-list>
+	<form #f="ngForm">
+		<ion-list>
 
-	  <ion-item>
-	    <ion-label stacked>Date</ion-label>
-	    <ion-datetime [(ngModel)]="expense.date"></ion-datetime>
-	  </ion-item>
+		  <ion-item>
+		    <ion-label stacked>Date</ion-label>
+		    <ion-datetime name="date" [(ngModel)]="expense.date" required></ion-datetime>
+		  </ion-item>
 
-	  <ion-item>
-	    <ion-label stacked>Amount</ion-label>
-	    <ion-input type="number" [(ngModel)]="expense.amount"></ion-input>
-	  </ion-item>
+		  <ion-item>
+		    <ion-label stacked>Amount</ion-label>
+		    <ion-input type="number" name="amount" [(ngModel)]="expense.amount"></ion-input>
+		  </ion-item>
 
-	  <ion-item>
-	    <ion-label stacked>Category</ion-label>
-	    <ion-select [(ngModel)]="expense.category">
-	    	<ion-option *ngFor="let category of categories">{{category}}</ion-option>
-	    	<
-	    </ion-select>
-	  </ion-item>
+		  <ion-item>
+		    <ion-label stacked>Category</ion-label>
+		    <ion-select name="category" [(ngModel)]="expense.category" required>
+		    	<ion-option *ngFor="let category of categories">{{category}}</ion-option>
+		    	<
+		    </ion-select>
+		  </ion-item>
 
-	  <ion-item>
-	    <ion-label stacked>Description</ion-label>
-	    <ion-input type="text" [(ngModel)]="expense.description"></ion-input>
-	  </ion-item>
+		  <ion-item>
+		    <ion-label stacked>Description</ion-label>
+		    <ion-input type="text" name="description" [(ngModel)]="expense.description" required></ion-input>
+		  </ion-item>
 
-	</ion-list>
+		</ion-list>
+	</form>
 </ion-content>

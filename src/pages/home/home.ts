@@ -13,8 +13,11 @@ export class HomePage {
   
   expenses:Expense[];
   constructor(private navCtrl: NavController,
-              private expenseService: ExpenseService) {
-    this.expenses = expenseService.expenses;
+              private expenseService: ExpenseService) {}
+
+  ionViewWillEnter(){
+      this.expenseService.getExpenses()
+      .then( expenses => this.expenses = expenses);
   }
 
   onAddClick(){

@@ -1,47 +1,37 @@
+import uuidV4 from 'uuid/v4';
+import 'rxjs/add/operator/toPromise';
+import { Injectable} from '@angular/core'
+import { Http } from '@angular/http';
 import { Expense } from './expense.model';
-
+console.log(uuidV4());
+@Injectable()
 export class ExpenseService {
-	static nextId = 4;
+	
 
   categories = ['Food', 'Travel', 'Other'];
-  expenses: Expense[] = [
-    {
-      id: 1,
-      date: '2016-01-01',
-      amount: 7.25,
-      category: 'Food',
-      description: 'Lunch'
-    },
-    {
-      id: 2,
-      date: '2016-01-02',
-      amount: 18.90,
-      category: 'Travel',
-      description: 'Train ticket'
-    },
-    {
-      id: 3,
-      date: '2016-01-02',
-      amount: 9.00,
-      category: 'Food',
-      description: 'Dinner'
-    }
-  ];
-  addExpense(expense: Expense){
-  	expense.id = ExpenseService.nextId++; 
-  	this.expenses.push(expense);
+  
+  constructor( private http: Http){}
+
+  addExpense(expense: Expense): Promise<void> {
+  	expense.id = uuidV4(); 
+  	return Promise.resolve();
   }
-  getExpense(expenseId: number) {
-    const expense = this.expenses.find(it => it.id === expenseId);
-    return Object.assign({}, expense);
+  getExpense(expenseId: string): Promise<Expense> {
+    return Promise.resolve(null);
   }
-  removeExpense(expenseId:number){
-  	const index = this.expenses.findIndex(it => it.id === expenseId);
-  	this.expenses.splice(index,1);
+  getExpenses(): Promise<Expense[]> {
+  	return this.http.get('http://localhost:9999/expenses/')
+  		.toPromise()
+  		.then(response => response.json());
+  	
   }
-  updateExpense(expense: Expense){
-    const index = this.expenses.findIndex(it => it.id === expense.id);
-    this.expenses[index] = expense;
+  removeExpense(expenseId:string):Promise<void> {
+  	  	return Promise.resolve();
+
+  }
+
+ updateExpense(expense: Expense): Promise<void> {
+    return Promise.resolve();
   }
 
 }

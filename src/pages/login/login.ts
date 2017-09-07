@@ -17,12 +17,10 @@ export class LoginPage {
   constructor(private authService: AuthService, private navCtrl: NavController) {}
 
   login(){
-  	const authenticated = this.authService.authenticate(this.username, this.password);
-  	if (authenticated) {
-  		this.navCtrl.setRoot(HomePage);
-  	} else {
-  		console.warn('login failed');
-  	}
+  	this.authService.authenticate(this.username, this.password)
+    .then(()=>this.navCtrl.setRoot(HomePage))
+      .catch(error => console.warn('login failed',error));
+  	
   }
 
 }

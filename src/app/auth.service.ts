@@ -1,19 +1,35 @@
+import { Injectable} from '@angular/core';
+import { Headers, Http, RequestOptions } from '@angular/http';
+
+@Injectable()
 export class AuthService {
 
-	authenticated = false;
 
-	constructor(){
-		const authenticated = localStorage.getItem('authenticated');
-		if (authenticated) {
-			this.authenticated = JSON.parse(authenticated);
-		} else {}
+	token = localStorage.getItem('token');
+	private apiUrl = 'http://localhost:9999';
+	private jsonContent = new RequestOptions({
+		headers: new Headers({
+			'Content-Type': 'application/json'
+		})
+	});
+
+	constructor( private http: Http ){}
+	get authenticated(){
+		return this.token !== null;
 	}
-	authenticate(username: string, password: string): boolean {
-		if (password.length > 3) {
-			this.authenticated = true;
-			localStorage.setItem('authenticated', JSON.stringify(true));
-			return true;
-		} 
-		return this.authenticated;
+
+	authenticate(username: string, password: string): Promise<any> {
+		const json = JSON.stringify({
+			username: username,
+			password: password
+		});
+		return this.http.post(`${this.apiUrl}/token`, json, this.jsonContent)
+			.toPromise()
+			.then( response => {
+				this.token = response.json().token;
+				localStorage.setItem('token',this.token);
+			});
+		
+
 	}
 }

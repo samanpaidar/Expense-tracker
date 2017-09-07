@@ -1,6 +1,5 @@
 import uuidV4 from 'uuid/v4';
-import 'rxjs/add/operator/toPromise';
-import { Injectable} from '@angular/core'
+import { Injectable} from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Expense } from './expense.model';
 console.log(uuidV4());
